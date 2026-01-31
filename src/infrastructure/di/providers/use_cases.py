@@ -1,5 +1,5 @@
 from dishka import Provider, Scope, provide
-from src.application.users.hello_user import (
+from src.application.use_cases import (
     HelloUserUseCase
 )
 

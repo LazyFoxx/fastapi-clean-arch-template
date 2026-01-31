@@ -14,5 +14,6 @@ class HelloUserUseCase:
     async def execute(self, input_dto: HelloUserInput) -> HelloUserOutput:
         user_name = input_dto.first_name
 
+        
 
         return HelloUserOutput(user_name, 'testmsg')
