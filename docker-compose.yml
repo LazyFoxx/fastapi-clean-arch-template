@@ -2,7 +2,7 @@
 name: fastapi-template
 
 services:
-  auth-dev:
+  fastapi_template:
     build: .
     restart: unless-stopped
     env_file:
@@ -60,7 +60,7 @@ services:
       - backend
 
   # === Удобные GUI-инструменты ===
-  auth-adminer:
+  adminer:
     image: adminer:latest
     restart: unless-stopped
     ports:
@@ -74,7 +74,7 @@ services:
     networks:
       - backend
 
-  auth-pgadmin:
+  pgadmin:
     image: dpage/pgadmin4:latest
     restart: unless-stopped
     ports:
