@@ -3,7 +3,7 @@ from typing import Optional
 from uuid import UUID
 
 
-from domain.entities.user.user import User
+from src.domain.entities.user.user import User
 
 
 class AbstractUserRepository(ABC):

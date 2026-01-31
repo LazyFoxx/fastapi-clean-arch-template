@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.application.interfaces import AbstractUserRepository
+from src.domain.entities import AbstractUserRepository
 
 
 class AbstractUnitOfWork(ABC):

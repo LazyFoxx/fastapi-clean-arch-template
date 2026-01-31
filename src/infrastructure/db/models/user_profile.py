@@ -1,4 +1,4 @@
-from domain.entities import User
+from src.domain.entities import User
 
 
 from typing import Optional

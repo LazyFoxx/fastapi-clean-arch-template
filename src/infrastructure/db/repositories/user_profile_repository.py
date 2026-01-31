@@ -4,7 +4,7 @@ from uuid import UUID
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from domain.entities import User, AbstractUserRepository
+from src.domain.entities import User, AbstractUserRepository
 from src.infrastructure.db.models import UserProfileModel
 
 

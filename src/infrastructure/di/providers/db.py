@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import (
 )
 from src.core.settings.database import DatabaseSettings
 
-from src.infrastructure.persistence.unit_of_work import SqlAlchemyUnitOfWork
+from src.infrastructure.db.unit_of_work import SqlAlchemyUnitOfWork
 from src.application.interfaces import AbstractUnitOfWork
 
 
@@ -24,13 +24,6 @@ class DbProvider(Provider):
         self, engine: AsyncEngine
     ) -> async_sessionmaker[AsyncSession]:
         return create_session_factory(engine)
-
-    # @provide(scope=Scope.REQUEST)
-    # def session(
-    #     self, session_factory: "async_sessionmaker[AsyncSession]"
-    # ) -> AsyncSession:
-    #     return session_factory()
-    
     
     @provide(scope=Scope.REQUEST)
     async def session(

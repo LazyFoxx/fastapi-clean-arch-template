@@ -3,8 +3,8 @@ from contextlib import asynccontextmanager
 
 from src.infrastructure.di.container import get_container
 from dishka.integrations.fastapi import setup_dishka
-from presentation.api.exception_handlers import setup_exception_handlers
-from presentation.api.routers.root import api_router
+from src.presentation.api.exception_handlers import setup_exception_handlers
+from src.presentation.api.routers.root import api_router
 
 container = get_container()
 
