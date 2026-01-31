@@ -17,7 +17,7 @@ class ConfigProvider(Provider):
     def redis_settings(self) -> RedisSettings:
         return RedisSettings()
     
-    @Provider(scope=Scope.APP)
+    @provide(scope=Scope.APP)
     def auth_settings(self) -> AuthSettings:
         return AuthSettings()
 

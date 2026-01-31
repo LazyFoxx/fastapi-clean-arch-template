@@ -1,13 +1,14 @@
 from dataclasses import dataclass
-from uuid import UUID
+from typing import Optional
+
+@dataclass(frozen=True, slots=True)
+class GetProfileserInput:
+    user_id: str
 
 
 @dataclass(frozen=True, slots=True)
-class HelloUserInput:
+class GetProfileUserOutput:
     first_name: str
-
-
-@dataclass(frozen=True, slots=True)
-class HelloUserOutput:
-    first_name: str
-    message: str
+    last_name: str
+    avatar_url: str
+    bio: Optional[str] = None

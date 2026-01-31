@@ -1,32 +1,32 @@
 from fastapi import APIRouter, Depends, status, BackgroundTasks, Response
 from dishka.integrations.fastapi import FromDishka, inject
-from src.secure.dependencies import get_current_user
-from domain.entities.user.user import User
+from src.presentation.api.dto.v1.users.user import UserProfileResponse
+from src.presentation.api.dependencies.auth import get_current_user
+from src.domain.entities import User
 
 from src.application.use_cases import (
-    HelloUserUseCase
+    GetUserProfileUseCase
 )
 
 router = APIRouter(prefix="/user", tags=["user"])
 
 @router.post(
     "/forgot-password/change-password",
-    response_model=LoginResponse,
+    response_model=UserProfileResponse,
     status_code=status.HTTP_200_OK,
     summary="Смена пароля пользователем",
     description=("Меняет пароль пользователя в БД на новый и производит автологин."),
     responses={
         200: {
-            "model": LoginResponse,
+            "model": UserProfileResponse,
             "description": "Успешная авторизация",
         },
     },
 )
 @inject
-async def change_password(
-    payload: NewPasswordRequest,
-    use_case: FromDishka[HelloUserUseCase],
+async def get_user_profile(
+    use_case: FromDishka[GetUserProfileUseCase],
     user: User = Depends(get_current_user),
-) -> LoginResponse:
-    
-    return {}
+) -> UserProfileResponse:
+    user_profile = use_case.execute()
+    return UserProfileResponse(**user_profile)

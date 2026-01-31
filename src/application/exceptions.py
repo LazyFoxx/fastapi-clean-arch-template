@@ -8,3 +8,8 @@ class EmailAlreadyExistsError(ApplicationError):
     def __init__(self, email: str):
         super().__init__(f"Email уже используется: {email}")
         self.email = email
+
+
+
+class InvalidTokenError(ApplicationError):
+    pass

@@ -2,18 +2,20 @@ from src.application.interfaces import (
     AbstractUnitOfWork,
 )
 
-from .dto import HelloUserInput, HelloUserOutput
+from .dto import GetProfileserInput, GetProfileUserOutput
 
-class HelloUserUseCase:
+class GetUserProfileUseCase:
     def __init__(
         self,
         uow: AbstractUnitOfWork,
     ):
         self.uow = uow
 
-    async def execute(self, input_dto: HelloUserInput) -> HelloUserOutput:
+    async def execute(self, input_dto: GetProfileserInput) -> GetProfileUserOutput:
         user_name = input_dto.first_name
+
+        self.uow.users.get_by_id(user_id)
 
         
 
-        return HelloUserOutput(user_name, 'testmsg')
+        return GetProfileUserOutput(user_name, 'testmsg')

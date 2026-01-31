@@ -4,11 +4,11 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from authlib.jose import JsonWebKey, JsonWebToken, JoseError
 from authlib.jose.errors import ExpiredTokenError, InvalidClaimError
-from src.core.settings.jwt import JwtSettings
+from src.core.settings.auth import AuthSettings
 from src.application.interfaces.unit_of_work import AbstractUnitOfWork
 from src.application.exceptions import InvalidTokenError
 
-from src.domain.entities.user import User
+from src.domain.entities import User
 
 
 bearer_scheme = HTTPBearer()
@@ -16,7 +16,7 @@ bearer_scheme = HTTPBearer()
 
 @inject
 async def get_current_user(
-    settings: FromDishka[JwtSettings],
+    settings: FromDishka[AuthSettings],
     uow: FromDishka[AbstractUnitOfWork],
     credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
 ) -> User:
