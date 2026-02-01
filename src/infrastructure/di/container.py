@@ -5,6 +5,7 @@ from .providers import (
     DbProvider,
     RedisProvider,
     UseCaseProvider,
+    AuthProvider,
 )
 
 # Список всех провайдеров
@@ -13,6 +14,7 @@ _PROVIDERS = [
     DbProvider(),
     RedisProvider(),
     UseCaseProvider(),
+    AuthProvider(),
 ]
 
 

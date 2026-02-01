@@ -1,5 +1,5 @@
 
-name: fastapi-template
+name: development
 
 services:
   fastapi_template:
@@ -28,6 +28,7 @@ services:
         condition: service_started
     networks:
       - backend
+      - app-network
 
   postgres:
     image: postgres:16-alpine
@@ -95,4 +96,6 @@ volumes:
 
 networks:
   backend:
+    driver: bridge
+  app-network:
     driver: bridge

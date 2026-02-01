@@ -12,10 +12,9 @@ class GetUserProfileUseCase:
         self.uow = uow
 
     async def execute(self, input_dto: GetProfileserInput) -> GetProfileUserOutput:
-        user_name = input_dto.first_name
-
-        self.uow.users.get_by_id(user_id)
+        async with self.uow:
+            user = await self.uow.users.get_by_id(input_dto.user_id)
 
         
 
-        return GetProfileUserOutput(user_name, 'testmsg')
+        return GetProfileUserOutput(**user)

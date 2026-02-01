@@ -10,13 +10,12 @@ class UserProfileResponse(BaseModel):
 
     model_config = {
         "json_schema_extra": {
-            "examples":
+            "examples": [
                 {
-                    "first_name": "Дмитрий",
+                    "avatar_url": "https://example.com/avatar.png",
+                    "first_name": "Иван",
                     "last_name": "Черноморов",
-                    "avatar_url": "https//sdfd",
-                    "bio": None,
-                },
-
+                }
+            ]
         }
     }
