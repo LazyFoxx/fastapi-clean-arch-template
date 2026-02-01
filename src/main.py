@@ -1,8 +1,10 @@
-from fastapi import FastAPI
 from contextlib import asynccontextmanager
+from typing import AsyncGenerator
+
+from dishka.integrations.fastapi import setup_dishka
+from fastapi import FastAPI
 
 from src.infrastructure.di.container import get_container
-from dishka.integrations.fastapi import setup_dishka
 from src.presentation.api.exception_handlers import setup_exception_handlers
 from src.presentation.api.routers.root import api_router
 
@@ -10,7 +12,7 @@ container = get_container()
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     # startup
     yield
     # shutdown

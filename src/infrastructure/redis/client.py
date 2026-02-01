@@ -1,4 +1,5 @@
 from redis.asyncio import Redis, from_url
+
 from src.core.settings import RedisSettings
 
 

@@ -1,6 +1,8 @@
 from functools import cached_property
-from pydantic_settings import BaseSettings, SettingsConfigDict
+
 from authlib.jose import JsonWebToken
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
 
 class AuthSettings(BaseSettings):
     jwks_url: str
@@ -9,7 +11,7 @@ class AuthSettings(BaseSettings):
     jwks_cache_ttl_seconds: int = 3600
 
     @cached_property
-    def json_web_token(self) -> JsonWebToken:
+    def jwt(self) -> JsonWebToken:
         return JsonWebToken([self.algorithm])
 
     model_config = SettingsConfigDict(

@@ -1,11 +1,11 @@
-from dishka import make_async_container
+from dishka import AsyncContainer, make_async_container
 
 from .providers import (
+    AuthProvider,
     ConfigProvider,
     DbProvider,
     RedisProvider,
     UseCaseProvider,
-    AuthProvider,
 )
 
 # Список всех провайдеров
@@ -18,7 +18,7 @@ _PROVIDERS = [
 ]
 
 
-def get_container():
+def get_container() -> AsyncContainer:
     """
     Фабрика для создания Dishka контейнера.
     Вызывается только при старте приложения (в lifespan) или в тестах.

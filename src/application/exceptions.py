@@ -10,6 +10,9 @@ class EmailAlreadyExistsError(ApplicationError):
         self.email = email
 
 
-
 class InvalidTokenError(ApplicationError):
+    pass
+
+
+class UserNotFoundError(ApplicationError):
     pass

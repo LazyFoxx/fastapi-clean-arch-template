@@ -1,7 +1,6 @@
 from dishka import Provider, Scope, provide
-from src.application.use_cases import (
-    GetUserProfileUseCase
-)
+
+from src.application.use_cases import GetUserProfileUseCase
 
 
 class UseCaseProvider(Provider):

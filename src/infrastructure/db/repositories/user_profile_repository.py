@@ -4,7 +4,7 @@ from uuid import UUID
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.domain.entities import User, AbstractUserRepository
+from src.domain.entities import AbstractUserRepository, User
 from src.infrastructure.db.models import UserProfileModel
 
 
@@ -16,7 +16,7 @@ class SQlAlchemyUserRepository(AbstractUserRepository):
         stmt = select(UserProfileModel).where(UserProfileModel.id == user_id)
         result = await self.session.execute(stmt)
         user_model = result.scalar_one_or_none()
-        return user_model.to_domain() if user_model else None
+        return user_model.to_entity() if user_model else None
 
     async def add(self, user: User) -> None:
         user_model = UserProfileModel.from_domain(user)
@@ -31,7 +31,7 @@ class SQlAlchemyUserRepository(AbstractUserRepository):
                 first_name=user.first_name,
                 last_name=user.last_name,
                 avatar_url=user.avatar_url,
-                bio=user.bio
+                bio=user.bio,
             )
         )
         await self.session.execute(stmt)

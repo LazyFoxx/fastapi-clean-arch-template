@@ -1,9 +1,11 @@
 from dataclasses import dataclass
 from typing import Optional
+from uuid import UUID
+
 
 @dataclass(frozen=True, slots=True)
 class GetProfileserInput:
-    user_id: str
+    user_id: UUID
 
 
 @dataclass(frozen=True, slots=True)

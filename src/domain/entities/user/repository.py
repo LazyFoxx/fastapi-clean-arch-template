@@ -2,12 +2,10 @@ from abc import ABC, abstractmethod
 from typing import Optional
 from uuid import UUID
 
-
 from src.domain.entities.user.user import User
 
 
 class AbstractUserRepository(ABC):
-
     @abstractmethod
     async def get_by_id(self, user_id: UUID) -> Optional[User]:
         """Получить пользователя по его уникальному идентификатору.
@@ -34,12 +32,12 @@ class AbstractUserRepository(ABC):
             IntegrityError: если email уже занят
         """
         ...
-    
+
     @abstractmethod
     async def update(self, user: User) -> None:
         """
         Обновляет существующего пользователя.
-        
+
         Args:
             user: Объект User
 

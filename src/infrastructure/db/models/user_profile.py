@@ -1,6 +1,3 @@
-from src.domain.entities import User
-
-
 from typing import Optional
 from uuid import UUID
 
@@ -8,6 +5,7 @@ from sqlalchemy import String, Text
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
+from src.domain.entities import User
 from src.infrastructure.db.base import Base
 
 
@@ -38,7 +36,7 @@ class UserProfileModel(Base):
         Text,
         nullable=True,
     )
-    
+
     def to_entity(self) -> User:
         """Конвертирует загруженную ORM-модель в чистую доменную сущность."""
         return User(
@@ -46,10 +44,10 @@ class UserProfileModel(Base):
             first_name=self.first_name,
             last_name=self.last_name,
             avatar_url=self.avatar_url,
-            bio=self.bio
-            )
+            bio=self.bio,
+        )
 
-    @staticmethod
+    @classmethod
     def from_domain(cls, user: User) -> "UserProfileModel":
         """Альтернативный конструктор: создаёт модель из доменной сущности."""
         return UserProfileModel(
@@ -57,5 +55,5 @@ class UserProfileModel(Base):
             first_name=user.first_name,
             last_name=user.last_name,
             avatar_url=user.avatar_url,
-            bio=user.bio
+            bio=user.bio,
         )

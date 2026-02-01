@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from .v1 import user as auth_v1
 
 api_router = APIRouter(prefix="/api")

@@ -1,8 +1,8 @@
+from .auth import AuthProvider
 from .config import ConfigProvider
 from .db import DbProvider
 from .redis import RedisProvider
 from .use_cases import UseCaseProvider
-from .auth import AuthProvider
 
 __all__ = [
     "UseCaseProvider",
@@ -10,4 +10,5 @@ __all__ = [
     "DbProvider",
     "RedisProvider",
     "JWKSProvider",
+    "AuthProvider",
 ]

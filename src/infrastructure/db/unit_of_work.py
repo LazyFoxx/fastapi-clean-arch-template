@@ -1,6 +1,11 @@
+from types import TracebackType
+from typing import Optional
+
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from src.application.interfaces import AbstractUnitOfWork
 from src.infrastructure.db.repositories import SQlAlchemyUserRepository
+
 
 class SqlAlchemyUnitOfWork(AbstractUnitOfWork):
     def __init__(self, session: AsyncSession):
@@ -11,7 +16,12 @@ class SqlAlchemyUnitOfWork(AbstractUnitOfWork):
         self.users = SQlAlchemyUserRepository(self.session)
         return self
 
-    async def __aexit__(self, exc_type, exc_value, traceback):
+    async def __aexit__(
+        self,
+        exc_type: Optional[type],
+        exc_value: Optional[BaseException],
+        traceback: Optional[TracebackType],
+    ) -> None:
         if exc_type is not None:
             await self.rollback()
         # Если исключения не было — сессия закоммитится в use case (явно)

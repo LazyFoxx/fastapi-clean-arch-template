@@ -1,9 +1,10 @@
 from typing import AsyncGenerator
+
 from dishka import Provider, Scope, provide
-from redis.asyncio import Redis, from_url
-from src.infrastructure.redis.client import create_redis_client
+from redis.asyncio import Redis
 
 from src.core.settings import RedisSettings
+from src.infrastructure.redis.client import create_redis_client
 
 
 class RedisProvider(Provider):

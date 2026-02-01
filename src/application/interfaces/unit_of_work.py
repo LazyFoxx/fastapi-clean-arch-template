@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from types import TracebackType
+from typing import Optional
 
 from src.domain.entities import AbstractUserRepository
 
@@ -12,10 +14,21 @@ class AbstractUnitOfWork(ABC):
         return self
 
     @abstractmethod
-    async def __aexit__(self, exc_type, exc_value, traceback) -> None: ...
+    async def __aexit__(
+        self,
+        exc_type: Optional[type],
+        exc_value: Optional[BaseException],
+        traceback: Optional[TracebackType],
+    ) -> None:
+        """Метод для обработки выхода из контекста"""
+        pass
 
     @abstractmethod
-    async def commit(self) -> None: ...
+    async def commit(self) -> None:
+        """Коммит изменений"""
+        pass
 
     @abstractmethod
-    async def rollback(self) -> None: ...
+    async def rollback(self) -> None:
+        """Откат изменений"""
+        pass
