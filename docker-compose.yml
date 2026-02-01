@@ -3,10 +3,12 @@ name: development
 
 services:
   fastapi_template:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     restart: unless-stopped
     env_file:
-      - .env.dev
+      - .env
     volumes:
       # Монтируем код для мгновенного hot-reload
       - ./src:/app/src:rw
@@ -34,7 +36,7 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     env_file:
-      - .env.dev
+      - .env
     volumes:
       - fastapi_template_postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -49,12 +51,17 @@ services:
     image: redis:7-alpine
     restart: unless-stopped
     env_file:
-      - .env.dev
+      - .env
     environment:
       REDIS_PASSWORD: ${REDIS_PASSWORD}
-    command: redis-server
-      --appendonly yes
-      --requirepass "${REDIS_PASSWORD}"
+    command:
+    - /bin/sh
+    - -c
+    # - Double dollars, so that the variable is not expanded by Docker Compose
+    # - Surround by quotes, so that the shell does not split the password
+    # - The ${variable:?message} syntax causes shell to exit with a non-zero
+    #   code and print a message, when the variable is not set or empty
+    - redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD variable is not set}"
     volumes:
       - fastapi_template_redis_data:/data
     networks:
@@ -67,7 +74,7 @@ services:
     ports:
       - "8081:8080"
     env_file:
-      - .env.dev
+      - .env
     environment:
       ADMINER_DEFAULT_SERVER: postgres
     depends_on:
@@ -81,7 +88,7 @@ services:
     ports:
       - "5051:80"
     env_file:
-      - .env.dev
+      - .env
     volumes:
       - fastapi_template_pgadmin_data:/var/lib/pgadmin
     depends_on:
