@@ -1,4 +1,4 @@
-from application.exceptions import UserNotFoundError
+from src.application.exceptions import UserNotFoundError
 from src.application.interfaces import (
     AbstractUnitOfWork,
 )
