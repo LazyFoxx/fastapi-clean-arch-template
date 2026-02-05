@@ -39,6 +39,8 @@ dishka = { extras = ["fastapi"], version = "^1.7.2" }
 # --- HTTP clients ---
 httpx = "^0.28.1"
 requests = "^2.32.3"   # используется в jwks_client.py
+structlog = "^25.5.0"
+python-json-logger = "^4.0.0"
 
 [tool.poetry.group.dev.dependencies]
 # --- Lint / format ---
