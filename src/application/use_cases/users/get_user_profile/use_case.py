@@ -5,7 +5,7 @@ from src.application.interfaces import (
     AbstractUnitOfWork,
 )
 
-from .dto import GetProfileserInput, GetProfileUserOutput
+from .dto import GetProfileUserInput, GetProfileUserOutput
 
 
 class GetUserProfileUseCase:
@@ -16,7 +16,7 @@ class GetUserProfileUseCase:
         self.uow = uow
         self.logger = structlog.get_logger(__name__)
 
-    async def execute(self, input_dto: GetProfileserInput) -> GetProfileUserOutput:
+    async def execute(self, input_dto: GetProfileUserInput) -> GetProfileUserOutput:
         async with self.uow:
             user = await self.uow.users.get_by_id(input_dto.user_id)
 

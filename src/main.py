@@ -38,6 +38,5 @@ app.add_middleware(
 setup_dishka(container, app=app)
 setup_exception_handlers(app)
 
-# app.add_middleware(LoggingMiddleware)
 
 app.include_router(api_router)

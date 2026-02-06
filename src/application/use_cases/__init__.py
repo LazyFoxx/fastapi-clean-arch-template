@@ -1,3 +1,4 @@
-from .users.get_user.use_case import GetUserProfileUseCase
+from .users.create_user_profile.use_case import CreateUserProfileUseCase
+from .users.get_user_profile.use_case import GetUserProfileUseCase
 
-__all__ = ["GetUserProfileUseCase"]
+__all__ = ["GetUserProfileUseCase", "CreateUserProfileUseCase"]
