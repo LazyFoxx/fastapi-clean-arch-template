@@ -3,6 +3,7 @@ from dishka import Provider, Scope, provide
 from src.core.settings import (
     AuthSettings,
     DatabaseSettings,
+    RabbitSettings,
     RedisSettings,
 )
 
@@ -21,3 +22,7 @@ class ConfigProvider(Provider):
     @provide(scope=Scope.APP)
     def auth_settings(self) -> AuthSettings:
         return AuthSettings()
+
+    @provide(scope=Scope.APP)
+    def rabbit_settings(self) -> RabbitSettings:
+        return RabbitSettings()

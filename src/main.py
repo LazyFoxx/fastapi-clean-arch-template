@@ -1,3 +1,4 @@
+import asyncio
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
@@ -9,6 +10,8 @@ from src.core.logging.config import setup_logging
 from src.core.middleware.logging_middleware import LoggingMiddleware
 from src.core.settings import cors_config
 from src.infrastructure.di.container import get_container
+from src.infrastructure.di.providers.rabbit import USER_REGISTERED
+from src.infrastructure.rabbit import RabbitConsumer
 from src.presentation.api.exception_handlers import setup_exception_handlers
 from src.presentation.api.routers.root import api_router
 
@@ -19,6 +22,18 @@ container = get_container()
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     # startup
     setup_logging()
+
+    consumer: RabbitConsumer = await container.get(RabbitConsumer)
+
+    callback = await container.get(USER_REGISTERED)
+    # Запускаем consumer в background task
+    asyncio.create_task(
+        consumer.start_consuming(
+            queue_name="register_user",
+            callback=callback,
+        )
+    )
+
     yield
     # shutdown
     await container.close()

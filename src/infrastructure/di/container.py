@@ -4,6 +4,7 @@ from .providers import (
     AuthProvider,
     ConfigProvider,
     DbProvider,
+    RabbitProvider,
     RedisProvider,
     UseCaseProvider,
 )
@@ -15,6 +16,7 @@ _PROVIDERS = [
     RedisProvider(),
     UseCaseProvider(),
     AuthProvider(),
+    RabbitProvider(),
 ]
 
 
