@@ -25,12 +25,12 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
     consumer: RabbitConsumer = await container.get(RabbitConsumer)
 
-    callback = await container.get(USER_REGISTERED)
     # Запускаем consumer в background task
     asyncio.create_task(
         consumer.start_consuming(
             queue_name="register_user",
-            callback=callback,
+            container=container,  # передаем контейнер
+            callback_key=USER_REGISTERED,  # передаем ключ DI
         )
     )
 

@@ -1,10 +1,12 @@
-from functools import partial
 from typing import Awaitable, Callable
 
 from aio_pika import IncomingMessage
 from dishka import Provider, Scope, provide
 from dishka.entities.key import DependencyKey
 
+from src.application.use_cases.users.create_user_profile.use_case import (
+    CreateUserProfileUseCase,
+)
 from src.core.settings.rabbit import RabbitSettings
 from src.infrastructure.rabbit import (
     RabbitConnection,
@@ -32,8 +34,12 @@ class RabbitProvider(Provider):
     async def consumer(self, conn: RabbitConnection) -> RabbitConsumer:
         return RabbitConsumer(conn)
 
-    @provide(scope=Scope.APP, provides=USER_REGISTERED)
+    @provide(scope=Scope.REQUEST, provides=USER_REGISTERED)
     def user_registered_callback(
         self,
+        use_case: CreateUserProfileUseCase,
     ) -> Callable[[IncomingMessage], Awaitable[None]]:
-        return partial(process_user_registered)
+        async def callback(message: IncomingMessage) -> None:
+            await process_user_registered(message, use_case)
+
+        return callback
