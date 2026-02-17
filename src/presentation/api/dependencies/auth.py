@@ -47,6 +47,6 @@ async def get_current_user_id(
     ],
 ) -> UUID:
     if not credentials:
-        raise InvalidTokenError
+        raise InvalidTokenError("Токен не передан")
     user_id: UUID = await auth.decode_token(credentials.credentials)
     return user_id
