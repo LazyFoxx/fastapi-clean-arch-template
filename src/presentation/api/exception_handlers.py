@@ -1,10 +1,15 @@
+import structlog
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from src.application.exceptions import InvalidTokenError
 
+logger = structlog.get_logger()
 
 async def invalid_token(request: Request, exc: InvalidTokenError) -> JSONResponse:
+    logger.warning(
+                "Неверный токен", error=str(exc)
+                )
     return JSONResponse(
         status_code=401,
         headers={"WWW-Authenticate": "Bearer"},
